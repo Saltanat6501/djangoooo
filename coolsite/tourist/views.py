@@ -1,9 +1,15 @@
 from django.http import HttpResponse,HttpResponseNotFound,Http404
 from django.shortcuts import render, redirect
 
+from .models import *
 
+menu=["Сайт туралы", "Қосу", "Кері байланыс", "Кіру"]
 def index(request):
-    return render(request, 'tourist/index.html')
+    posts=Tourist.objects.all()
+    return render(request, 'tourist/index.html', {'posts': posts, 'menu': menu, 'title': 'Басты бет'})
+
+def about(request):
+    return render(request, 'tourist/about.html', {'menu': menu, 'title': 'Сайт туралы'})
 
 def categories(request, catid):
     if request.POST:
