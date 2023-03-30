@@ -8,11 +8,11 @@ html, body {
 }
 
 a {
-	color: #0059b2;
+	color: #00FFFF;
 	text-decoration: none;
 }
 a:hover {
-	color: #CC0000;
+	color: #B22222;
 	text-decoration: underline;
 }
 
@@ -36,7 +36,7 @@ p.link-read-post {
 p.link-read-post a {
 	padding: 10px;
 	min-width: 100px;
-	background: #333671;
+	background: #00CED1;
 	color: #fff;
 	text-decoration: none;
 }
@@ -76,7 +76,7 @@ ul.list-articles li {
 .clear {clear: both;}
 
 .header {
-	background: #3F4137;
+	background: #FFA07A;
 	height: 60px;
 }
 
@@ -133,7 +133,7 @@ ul.langitem li.image {
 	overflow: hidden;
 }
 ul.langitem li.descr {
-	color: #777;
+	color: #1E90FF;
 	height: 170px;
 	overflow: hidden;
 }
@@ -146,7 +146,7 @@ ul.langitem li a:hover {
 	color: #FDA83D;
 }
 div.button {
-	background: #3F4137;
+	background: #00FFFF;
 	max-width: 200px;
 	margin: 0 auto;
 	padding: 5px 20px 5px 20px;
