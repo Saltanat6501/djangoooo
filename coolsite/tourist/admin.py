@@ -19,7 +19,3 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Tourist, TouristAdmin)
 admin.site.register(Category, CategoryAdmin)
-
-
-admin.site.register(Tourist, TouristAdmin)
-admin.site.register(Category, CategoryAdmin)
