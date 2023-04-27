@@ -20,7 +20,7 @@ class Tourist(models.Model):
     class Meta:
         verbose_name = 'Көрікті жерлер'
         verbose_name_plural = 'Көрікті жерлер'
-        ordering = ['-time_create', 'title']
+        ordering = ['id']
 
 
 class Category(models.Model):
@@ -31,7 +31,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'cat_id': self.pk})
+        return reverse('category', kwargs={'cat_slug': self.slug})
 
     class Meta:
         verbose_name = 'Категория'

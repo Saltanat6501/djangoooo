@@ -1,7 +1,7 @@
 """coolsite URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -20,14 +20,23 @@ from django.urls import path
 from coolsite import settings
 from tourist.views import *
 from django.urls import path, include
+from tourist.views import TouristAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/touristlist/',TouristAPIView.as_view()),
+    path('api/v1/touristlist/<int:pk>/',TouristAPIView.as_view()),
+    path('captcha/', include('captcha.urls')),
     path('', include('tourist.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    import debug_toolbar
 
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = pageNotFound

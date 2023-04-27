@@ -3,7 +3,7 @@
 {% block content %}
 <h1>{{title}}</h1>
 
-<form action="{% url 'add_page' %}" method="post" enctype="multipart/form-data">
+<form method="post">
     {% csrf_token %}
 
     <div class="form-error">{{ form.non_field_errors }}</div>
@@ -13,8 +13,7 @@
 <div class="form-error">{{ f.errors }}</div>
 {% endfor %}
 
-
-    <button type="submit" class="add-btn">Қосу</button>
+    <button type="submit">Отправить</button>
 </form>
 
 {% endblock %}
