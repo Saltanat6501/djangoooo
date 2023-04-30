@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics,viewsets, mixins
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -11,49 +11,46 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.forms import model_to_dict
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.authentication import TokenAuthentication
+
 
 from .forms import *
 from .models import *
 from .serializers import TouristSerializer
 from .utils import *
+from .models import Tourist, Category
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+
+class TouristAPIListPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size'
+    max_page_size = 2
+
+
+class TouristAPIList(generics.ListCreateAPIView):
+    queryset = Tourist.objects.all()
+    serializer_class = TouristSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    pagination_class = TouristAPIListPagination
+
+class TouristAPIUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Tourist.objects.all()
+    serializer_class = TouristSerializer
+    permission_classes = (IsOwnerOrReadOnly, )
+    # authentication_classes = (TokenAuthentication, )
+
+
+class TouristAPIDestroy(generics.RetrieveDestroyAPIView):
+    queryset = Tourist.objects.all()
+    serializer_class = TouristSerializer
+    permission_classes = (IsAdminOrReadOnly, )
 
 
 
-class TouristAPIView(APIView):
-    def get(self, request):
-        w = Tourist.objects.all()
-        return Response({'posts': TouristSerializer(w, many=True).data})
-
-    def post(self, request):
-        serializer = TouristSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response({'post': serializer.data})
-
-    def put(self, request, *args, **kwargs):
-        pk = kwargs.get("pk", None)
-        if not pk:
-            return Response({"error": "Method PUT not allowed"})
-
-        try:
-            instance = Tourist.objects.get(pk=pk)
-        except:
-            return Response({"error": "Object does not exists"})
-
-        serializer = TouristSerializer(data=request.data, instance=instance)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({"post": serializer.data})
-
-    def delete(self, request, *args, **kwargs):
-        pk = kwargs.get("pk", None)
-        if not pk:
-            return Response({"error": "Method DELETE not allowed"})
-
-
-
-        return Response({"post": "delete post " + str(pk)})
 
 
 class TouristHome(DataMixin, ListView):
