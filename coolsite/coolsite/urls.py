@@ -15,17 +15,29 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
 
 from coolsite import settings
-from tourist.views import *
-from django.urls import path, include
+from django.urls import path, include, re_path
+
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
 from tourist.views import TouristAPIView
+from tourist.views import *
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/touristlist/',TouristAPIView.as_view()),
-    path('api/v1/touristlist/<int:pk>/',TouristAPIView.as_view()),
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
+    path('api/v1/tourist/', TouristAPIList.as_view()),
+    path('api/v1/tourist/<int:pk>/', TouristAPIUpdate.as_view()),
+    path('api/v1/touristdelete/<int:pk>/', TouristAPIDestroy.as_view()),
+    path('api/v1/auth/', include('djoser.urls')),  # new
+    re_path(r'^auth/', include('djoser.urls.authtoken')),  # new
+    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('captcha/', include('captcha.urls')),
     path('', include('tourist.urls')),
 ]
