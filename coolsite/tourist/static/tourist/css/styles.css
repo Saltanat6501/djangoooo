@@ -104,7 +104,7 @@ ul.list-articles li {
 
 .header {
 	background-color: #ffffff;
-	height: 64px;
+	height: auto;
 	padding: 16px 0px;
 
 }
@@ -299,7 +299,6 @@ ul.content-table li a {
 ul.content-table li a:hover {color: #F0711C;}
 
 .content-text {
-	margin: 60px 0 0 30px;
 	color: #000;
 	font-size: 18px;
 	line-height: 24px;

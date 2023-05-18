@@ -1,27 +1,125 @@
 {% extends 'tourist/base.html' %}
 
 {% block content %}
-<ul class="list-articles">
-	{% for p in posts %}
-			<li>
-                {% if p.photo %}
-	<div><img class="img-article-left thumb" src="{{p.photo.url}}"></div>
-{% endif %}
-               <div class="post-content"> <div class="article-panel">
-	<p class="first">{{p.cat}}</p>
-	<p class="last"> {{p.time_update|date:"d-m-Y H:i:s"}}</p>
-</div>
+    {% for p in posts %}
+        {% if forloop.counter == 1 %}
+            <div class="tm-container-outer" id="tm-section-2">
+                <section class="tm-slideshow-section">
+                    <div class="tm-slideshow">
+                        {% if p.photo %}
+                        <img src="{{p.photo.url}}" style="width:650px;height: 535px;" alt="Image">
+                        {% endif %}
+                    </div>
+
+                    <div class="tm-slideshow-description tm-bg-primary">
+                        <h2 class="">{{p.title}}</h2>
+                        <p class="first">{{p.cat}}</p>
+                        <p>{% autoescape on %}
+	                    {{p.content|linebreaks|truncatewords:50}}
+	                    {% endautoescape %}</p>
+                        <a  class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary" href="{{ p.get_absolute_url }}">Толығырақ оқу</a>
+                    </div>
+                </section>
+{%  elif forloop.counter == 2%}
+                 <section class="clearfix tm-slideshow-section tm-slideshow-section-reverse">
+                    <div class="tm-right tm-slideshow tm-slideshow-highlight">
+                        {% if p.photo %}
+                        <img src="{{p.photo.url}}" style="width:650px;height: 535px;" alt="Image">
+                        {% endif %}
+                    </div>
+
+                    <div class="tm-slideshow-description tm-slideshow-description-left tm-bg-highlight">
+                        <h2 class="">{{p.title}}</h2>
+                        <p>{% autoescape on %}
+	                    {{p.content|linebreaks|truncatewords:50}}
+	                    {% endautoescape %}</p>
+                        <a href="{{ p.get_absolute_url }}" class="text-uppercase tm-btn tm-btn-white tm-btn-white-highlight">Толығырақ оқу</a>
+                    </div>
+
+
+                </section>
+                {%  elif forloop.counter == 3 %}
+                      <section class="tm-slideshow-section">
+                    <div class="tm-slideshow">
+                        {% if p.photo %}
+                        <img src="{{p.photo.url}}" style="width:650px;height: 535px;" alt="Image">
+                        {% endif %}
+                    </div>
+
+                    <div class="tm-slideshow-description tm-bg-primary">
+                        <h2 class="">{{p.title}}</h2>
+                        <p class="first">{{p.cat}}</p>
+                        <p>{% autoescape on %}
+	                    {{p.content|linebreaks|truncatewords:50}}
+	                    {% endautoescape %}</p>
+                        <a  class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary" href="{{ p.get_absolute_url }}">Толығырақ оқу</a>
+                    </div>
+                </section>
+{%  elif forloop.counter == 4%}
+                 <section class="clearfix tm-slideshow-section tm-slideshow-section-reverse">
+                    <div class="tm-right tm-slideshow tm-slideshow-highlight">
+                        {% if p.photo %}
+                        <img src="{{p.photo.url}}" style="width:650px;height: 535px;" alt="Image">
+                        {% endif %}
+                    </div>
+                    <div class="tm-slideshow-description tm-slideshow-description-left tm-bg-highlight">
+                        <h2 class="">{{p.title}}</h2>
+                        <p>{% autoescape on %}
+	                    {{p.content|linebreaks|truncatewords:50}}
+	                    {% endautoescape %}</p>
+                        <a href="{{ p.get_absolute_url }}" class="text-uppercase tm-btn tm-btn-white tm-btn-white-highlight">Толығырақ оқу</a>
+                    </div>
+                   </section>
+
+                     {%  elif forloop.counter == 5%}
+                      <section class="tm-slideshow-section">
+                    <div class="tm-slideshow">
+                        {% if p.photo %}
+                        <img src="{{p.photo.url}}" style="width:650px;height: 535px;" alt="Image">
+                        {% endif %}
+                    </div>
+
+                    <div class="tm-slideshow-description tm-bg-primary">
+                        <h2 class="">{{p.title}}</h2>
+                        <p class="first">{{p.cat}}</p>
+                        <p>{% autoescape on %}
+	                    {{p.content|linebreaks|truncatewords:50}}
+	                    {% endautoescape %}</p>
+                        <a  class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary" href="{{ p.get_absolute_url }}">Толығырақ оқу</a>
+                    </div>
+                </section>
+
+            </div>
+        {% endif %}
 
 
 
-				<h2 class="post-title">{{p.title}}</h2>
-	{% autoescape on %}
-	{{p.content|linebreaks|truncatewords:50}}
-	{% endautoescape %}
-			<div class="clear"></div>
-			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Толығырақ оқу</a></p>
-               </div>
-			</li>
+
+
+
+
+
+{#<ul class="list-articles">#}
+{#	{% for p in posts %}#}
+{#			<li>#}
+{#                {% if p.photo %}#}
+{#	<div><img class="img-article-left thumb" src="{{p.photo.url}}"></div>#}
+{#{% endif %}#}
+{#               <div class="post-content"> <div class="article-panel">#}
+{#	<p class="first">{{p.cat}}</p>#}
+{#	<p class="last"> {{p.time_update|date:"d-m-Y H:i:s"}}</p>#}
+{#</div>#}
+
+
+{##}
+{#				<h2 class="post-title">{{p.title}}</h2>#}
+{#	{% autoescape on %}#}
+{#	{{p.content|linebreaks|truncatewords:50}}#}
+{#	{% endautoescape %}#}
+{#			<div class="clear"></div>#}
+{#			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Толығырақ оқу</a></p>#}
+{#               </div>#}
+{#			</li>#}
 	{% endfor %}
 </ul>
 {% endblock %}

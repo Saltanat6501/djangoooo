@@ -1,29 +1,24 @@
-from rest_framework import generics,viewsets, mixins
 from django.contrib.auth import logout, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
-from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseNotFound
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.forms import model_to_dict
-from rest_framework.viewsets import GenericViewSet
-from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
+from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.authentication import TokenAuthentication
-
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .forms import *
-from .models import *
-from .serializers import TouristSerializer
-from .utils import *
 from .models import Tourist, Category
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+from .serializers import TouristSerializer
+from .utils import *
+
+
+#openai.api_key = "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"
+
 
 class TouristAPIListPagination(PageNumberPagination):
     page_size = 3
@@ -60,7 +55,7 @@ class TouristHome(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Главная страница")
+        c_def = self.get_user_context(title="Басты бет")
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
@@ -73,7 +68,7 @@ def about(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'tourist/about.html', {'page_obj': page_obj, 'menu': menu, 'title': 'О сайте'})
+    return render(request, 'tourist/about.html', {'page_obj': page_obj, 'menu': menu, 'title': 'Біз туралы'})
 
 
 class AddPage(LoginRequiredMixin, DataMixin, CreateView):
@@ -85,7 +80,7 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Добавление статьи")
+        c_def = self.get_user_context(title="Мақала қосу")
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -96,7 +91,7 @@ class ContactFormView(DataMixin, FormView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Обратная связь")
+        c_def = self.get_user_context(title="Кері байланыс")
         return dict(list(context.items()) + list(c_def.items()))
 
     def form_valid(self, form):
@@ -108,8 +103,8 @@ class ContactFormView(DataMixin, FormView):
 #     return HttpResponse("Авторизация")
 
 
-def pageNotFound(request, exception):
-    return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+def pageNotFound(request, exception):#запростар туралы инфр. туратын TttpRequest класссына көрсететін ссылка
+    return HttpResponseNotFound('<h1>Бет табылмады</h1>')
 
 
 class ShowPost(DataMixin, DetailView):
@@ -148,7 +143,7 @@ class RegisterUser(DataMixin, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Регистрация")
+        c_def = self.get_user_context(title="Тіркелу")
         return dict(list(context.items()) + list(c_def.items()))
 
     def form_valid(self, form):
@@ -163,7 +158,7 @@ class LoginUser(DataMixin, LoginView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Авторизация")
+        c_def = self.get_user_context(title="Кіру")
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):

@@ -1,14 +1,40 @@
+<!DOCTYPE html>
 {% load static %}
 {% load tourist_tags %}
-<!DOCTYPE html>
+{% load bootstrap4 %}
 <html>
 <head>
 	<title>{{title}}</title>
-	<link type="text/css" href="{% static 'tourist/css/styles.css' %}" rel="stylesheet" />
+
+    {% bootstrap_css %}
+
+	<link href="{% static 'tourist/css/styles.css' %}" rel="stylesheet" />
+	<link href="{% static 'tourist/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'tourist/css/datepicker.css' %}" rel="stylesheet" />
+	<link href="{% static 'tourist/css/templatemo-style.css' %}" rel="stylesheet" />
+	<link href="{% static 'font/css/font-awesome.css' %}" rel="stylesheet" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="shortcut icon" href="{% static 'tourist/images/logo.pn' %}" type="image/x-icon"/>
+	<link rel="shortcut icon" href="{% static 'tourist/images/logo.png' %}" type="image/x-icon"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" type="text/css" href="{% static 'tourist/slick/slick.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+
 </head>
+
+
 <body>
 <table class="table-page" border=0 cellpadding="0" cellspacing="0">
 <tr><td valign=top>
@@ -16,6 +42,11 @@
 		<div class="header">
 			<ul id="mainmenu" class="mainmenu">
 			<li class="logo"><a href="{% url 'home' %}"><div class="logo">
+
+
+
+
+
             </div></a></li>
 {% for m in menu %}
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
@@ -106,5 +137,9 @@
 	</div>
 </td></tr></table>
 <!-- Конец footer'а и страницы -->
+
+ {% bootstrap_javascript %}
+
+
 </body>
 </html>
